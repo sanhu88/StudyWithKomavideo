@@ -111,4 +111,30 @@ index.html 代码
 
 > 1. Vue 2 就有v-on 了
 > 2. 可以绑定其他鼠标操作
-> 3. 
+
+## 第五节 v-model
+
+> 变量双向绑定
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <p>{{ message }}</p>
+        <input class="form-control" v-model="message" />
+    </div>
+    <script>
+        const HelloVueApp = {
+            data() {
+                return {
+                    message: 'v-model 双向绑定'
+                }
+            },
+        }
+        Vue.createApp(HelloVueApp).mount('#hello-vue')
+    </script>    
+</body>
+~~~
+
+> 1. 文本会同时显示在input文本框中
+> 2. 修稿了input内容，p段落也会改变。
+> 3. 联想到，银行卡卡号输入时，放大显示核对
