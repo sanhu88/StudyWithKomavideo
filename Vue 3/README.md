@@ -1,6 +1,6 @@
 # Vue 3 学习笔记
 
-## 第一节 引入
+## 第二节 引入
 
 入门教程，小马老师使用的是css样式引入，而且还同时加入了Bootstrap
 
@@ -48,7 +48,7 @@ index.html 代码
 </html>
 ~~~
 
-## v-bind 数据绑定
+## 第三节 v-bind 数据绑定
 
 ~~~html
 	<div id="hello-vue" class="m-3 p-3 border border-success">
@@ -71,3 +71,44 @@ index.html 代码
     </script>   
 ~~~
 
+> 数据绑定，把关键词，写在 div属性的前面，其他和普通div一致
+>
+> 其中message ，可以替换成其他名称
+>
+> 其中v-bind: 可以缩写 :
+
+## 第四节 v-on 事件处理
+
+> 使用v-on绑定一个click事件
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <h3>{{ message }}</h3>
+        <button class="btn btn-success" v-on:click="reverseMessage">反转字符串</button>
+    </div>
+    <script>
+        const HelloVueApp = {
+            data() {
+                return {
+                    message: '上海自来水来自海上，黄山落叶松叶落山黄'
+                }
+            },
+            methods: {
+                reverseMessage() {
+                    //定义函数
+                    this.message = this.message
+                        .split('')
+                        .reverse()
+                        .join('')
+                }
+            }
+        }
+        Vue.createApp(HelloVueApp).mount('#hello-vue')
+    </script>    
+</body>
+~~~
+
+> 1. Vue 2 就有v-on 了
+> 2. 可以绑定其他鼠标操作
+> 3. 
