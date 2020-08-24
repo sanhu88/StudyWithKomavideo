@@ -1,5 +1,9 @@
 # Vue 3 学习笔记
 
+## 第一节 学习资料
+
+https://github.com/komavideo/LearnVue3
+
 ## 第二节 引入
 
 入门教程，小马老师使用的是css样式引入，而且还同时加入了Bootstrap
@@ -138,3 +142,35 @@ index.html 代码
 > 1. 文本会同时显示在input文本框中
 > 2. 修稿了input内容，p段落也会改变。
 > 3. 联想到，银行卡卡号输入时，放大显示核对
+> 4. 绑定不再是div属性 是Vue数据
+
+## 第六节  v-if
+
+> 控制元素显示条件
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <p>
+            <button class="btn btn-success" v-on:click="this.seen = !this.seen">设定按钮</button>
+        </p>
+        <div v-if="seen">能看见我吗？</div>
+    </div>
+    <script>
+        const HelloVueApp = {
+            data() {
+                return {
+                    seen: true
+                }
+            },
+        }
+        Vue.createApp(HelloVueApp).mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+
+
+> 1. v-on 绑定click，可以改变seen这个变量的值，取反操作
+> 2. div 中增加 v-if 属性并关联变量seen
+> 3. 可以控制DOM树在源代码的整个显示与消失
