@@ -175,7 +175,7 @@ index.html 代码
 > 2. div 中增加 v-if 属性并关联变量seen
 > 3. 可以控制DOM树在源代码的整个显示与消失
 
-## 第八节 v-for 循环
+## 第七节 v-for 循环
 
 > v-for循环一个数组
 
@@ -216,3 +216,39 @@ index.html 代码
 > 4. v-for 和 v-if 类似，使用上看做div的一个属性
 > 5. Vue 2 使用方法一样
 
+## 第八节 自定义组件 component
+
+> 大部分工作内容是开发小组件，组合达到目的
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <button class="btn btn-success" v-on:click="this.seen = !this.seen">万能按钮</button>
+        <hr>
+        <hello-world myname="koma" v-if="this.seen" />        
+    </div>
+    <script>
+        //声明app 组件对象 HelloVueApp，只提供一个数据seen
+        const HelloVueApp = {
+            data() {
+                return {
+                    seen: true,
+                }
+            },
+        }
+        //实例化Vue整个应用给app
+        const app = Vue.createApp(HelloVueApp)
+        //在app里调用component方法，在app增加一个组件 hello-world
+        app.component('hello-world', {
+            //描述组件的细节，接受myname属性
+            props: ['myname'],
+            //呈现的html模板
+            template: `<h1>hello {{ myname }}.</h1>`
+        })
+        //app绑定到div
+        app.mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+> 1. 因为hello-world 不是一个有效的div 名称，而是调用app的component
