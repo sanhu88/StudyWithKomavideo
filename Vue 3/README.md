@@ -174,3 +174,45 @@ index.html 代码
 > 1. v-on 绑定click，可以改变seen这个变量的值，取反操作
 > 2. div 中增加 v-if 属性并关联变量seen
 > 3. 可以控制DOM树在源代码的整个显示与消失
+
+## 第八节 v-for 循环
+
+> v-for循环一个数组
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <button class="btn btn-success" v-on:click="this.seen = !this.seen">今天的预定</button>
+        <hr>
+        <ol>
+            <li v-for="todo in todos" v-if="seen">
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+    <script>
+        const HelloVueApp = {
+            data() {
+                return {
+                    seen: false,
+                    todos: [
+                        { text: '吃饭' },
+                        { text: '睡觉' },
+                        { text: '打游戏' }
+                    ]
+                }
+            },
+        }
+        Vue.createApp(HelloVueApp).mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+
+
+> 1. 实际开发中，数组一般来自后端，通过API等得出，比如新闻列表；员工列表
+> 2. data函数定义了seen和todos
+> 3. todos是一个数组，可以迭代循环
+> 4. v-for 和 v-if 类似，使用上看做div的一个属性
+> 5. Vue 2 使用方法一样
+
