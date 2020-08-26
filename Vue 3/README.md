@@ -223,8 +223,10 @@ index.html 代码
 ~~~html
 <body>
     <div id="hello-vue" class="m-3 p-3 border border-success">
+        <!-- 取反按钮-->
         <button class="btn btn-success" v-on:click="this.seen = !this.seen">万能按钮</button>
         <hr>
+        <!-- 引入小组件-->
         <hello-world myname="koma" v-if="this.seen" />        
     </div>
     <script>
@@ -251,4 +253,41 @@ index.html 代码
 </body>
 ~~~
 
-> 1. 因为hello-world 不是一个有效的div 名称，而是调用app的component
+> 1. <hello-world myname="koma" v-if="this.seen" />  
+> 2. 因为hello-world 不是一个有效的div 名称，而是调用app的component
+> 3. property 属性
+
+## 第九课 对象实例
+
+> 实例的生产和使用
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <!-- 数据模板的值 -->
+        {{ a }}
+    </div>
+    <script>
+        // 定义自己的数据对象
+        const myData = { a: 10 } //初始赋值为10
+        const vm = Vue.createApp({/* options */
+            data() {
+                // App返回自定义的数据对象
+                return myData  //返回上面的定义好的
+            }
+        }).mount('#hello-vue')
+        // 打印数据
+        console.log(vm.a)
+        console.log(vm.$data) //数据对象的值，是一个代理
+        console.log(myData)
+        // 改变数据的值
+        vm.a = 100
+        console.log(vm.a)
+        console.log(vm.$data) // Vue实例属性
+        console.log(myData)
+    </script>
+</body>
+~~~
+
+> 1. 指针引用，不是值的拷贝
+> 2. 对象值改变，是双向的
