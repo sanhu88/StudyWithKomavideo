@@ -295,3 +295,14 @@ index.html 代码
 
 > 1. 指针引用，不是值的拷贝
 > 2. 对象值改变，是双向的
+
+##  CLI 命令行工具包
+
+> 使用Vue命令行工具创建Vue 3 工程
+
+~~~ssh
+sudo npm install -g @vue/cli@next 
+vue -V //4.5以上
+vue create hello-vues
+~~~
+
