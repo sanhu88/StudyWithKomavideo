@@ -254,8 +254,12 @@ index.html 代码
 ~~~
 
 > 1. <hello-world myname="koma" v-if="this.seen" />  
+>
+>    产生的是模板<h1>里的内容
+>
 > 2. 因为hello-world 不是一个有效的div 名称，而是调用app的component
-> 3. property 属性
+>
+> 3. 注册组件后，组件接受属性 myname ，myname 在 调用是给出。property 属性
 
 ## 第九课 对象实例
 
@@ -270,16 +274,16 @@ index.html 代码
     <script>
         // 定义自己的数据对象
         const myData = { a: 10 } //初始赋值为10
-        const vm = Vue.createApp({/* options */
+        const vm = Vue.createApp({//实例化静态函数/* options */
             data() {
                 // App返回自定义的数据对象
-                return myData  //返回上面的定义好的
+                return myData  //返回上方的定义好的myData
             }
         }).mount('#hello-vue')
         // 打印数据
-        console.log(vm.a)
-        console.log(vm.$data) //数据对象的值，是一个代理
-        console.log(myData)
+        console.log(vm.a)	// vm 里a的值
+        console.log(vm.$data) //数据对象的值，是一个代理，代理有Object
+        console.log(myData)	//是Object
         // 改变数据的值
         vm.a = 100
         console.log(vm.a)
