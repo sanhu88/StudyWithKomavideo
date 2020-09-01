@@ -306,3 +306,34 @@ vue -V //4.5以上
 vue create hello-vues
 ~~~
 
+## 第十节 生命周期
+
+>1. 每个实例创建都会经历初始化的一系列步骤
+>2. 钩子函数，在特定阶段添加自定义代码
+>3. 官网生命周期API : https://v3.vuejs.org/api/options-lifecycle-hooks.html
+>4. 小马Vue模板工具包 http://tools.komavideo.com/#/home/code-template
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        {{ x + y }} <!-- 页面输出计算结果 -->
+    </div>
+    <script>
+        Vue.createApp({/* options */
+            data() {
+                return {
+                    x: 10,
+                    y: 20,
+                }
+            },
+            created() {
+                // 组件生成时，在F12命令行里输出日志
+                console.log('x + y is: ' + (this.x + this.y))
+            }
+        }).mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+
+
