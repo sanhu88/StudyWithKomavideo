@@ -335,5 +335,62 @@ vue create hello-vues
 </body>
 ~~~
 
+> beforeCreate: function() {},
+> created: function() {},
+> beforeMount: function() {},
+> mounted: function() {},
+> beforeUpdate: function() {},
+> updated: function() {},
+> activated: function() {},
+> deactivated: function() {},
+> beforeDestroy: function() {},
+> destroyed: function() {
+> },
+> errorCaptured: function() {}
 
+## 第十一节  插值 v-once,v-html,v-bind
 
+>  
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <h3>插值语法</h3>
+        <span class="text-primary">{{ message }} </span>
+
+        <hr>
+        <h3>只渲染一次 - v-once</h3>
+        <span v-once class="text-danger">{{ message }}</span>
+        <br>
+        <button class="btn btn-info" v-on:click="this.message='不要太悲观, 虽然上帝看不到。'">哦？</button>
+        
+        <hr>
+        <h3>原始HTML - v-html</h3>
+        {{ rawHtml }}
+        <br>
+        <span v-html="rawHtml"></span>
+        
+        <hr>
+        <h3>绑定属性 - v-bind:xxx</h3>
+        <button v-bind:disabled="isDisabledButton" v-on:click="this.isDisabledButton=true" class="btn btn-info">按我一下吧</button>
+    </div>
+    <script>
+        Vue.createApp({/* options */
+            data() {
+                return {
+                    message: '中国足球没戏了!',
+                    rawHtml: '<b class=text-danger>恒大衰落了</b>',
+                    isDisabledButton: false
+                }
+            },
+        }).mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+> 1. 胡子（插值）语法为何可以显示正确的值，
+>    * id 绑定给Vue内部核心
+> 2. bootstrap 语法，text-primary 蓝色字体
+> 3. v-once 如果代码值变化，不会再次渲染，不会双向变化
+> 4. 原始客户输入代码，直接v-html使用有安全风险需要白名单处理
+> 5. button的disable属性是HTML5原生的
