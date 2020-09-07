@@ -437,7 +437,7 @@ vue create hello-vues
 
 ## 第十三节 getter 计算属性
 
-> Vue 2 /3 ,Angular 都有存在，统计其他变量
+> Vue 2 /3 ,Angular 都有存在，统计其他变量,取得计算属性
 
 ~~~html
  <div id="hello-vue" class="m-3 p-3 border border-success">
@@ -475,3 +475,41 @@ vue create hello-vues
 2. this.games.length 不会去重
 3. 列表最后一个逗号，可有可无
 4. playedGameCount 是函数
+
+## 第十四节 setter 计算属性
+
+> 设置计算属性
+
+~~~html
+ <div id="hello-vue" class="m-3 p-3 border border-success">
+        <h3>{{this.x}} + {{this.y}} = {{this.result}}</h3>
+        <button @click="this.result=100" class="btn btn-success">重新设定 x, y</button>
+    </div>
+    <script>
+        Vue.createApp({/* options */
+            data() {
+                return {
+                    x: 10,
+                    y: 20,
+                }
+            },
+            computed: {
+                result: {
+                    // getter
+                    get() {
+                        return this.x + this.y
+                    },
+                    // setter
+                    set(newValue) {
+                        this.x = newValue - 30
+                        this.y = 30
+                    }
+                }
+            }
+        }).mount('#hello-vue')
+    </script>
+~~~
+
+1. 提供X Y 两个属性
+2. 动态改变XY的值，不要改变计算属性，设为只读函数
+3. z = Math.ceil(Math.random()*100)
