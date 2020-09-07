@@ -432,4 +432,46 @@ vue create hello-vues
 ~~~
 
 1. buyPS5 就是一个methods里的函数，接受参数传入
+2. 减少代码量
+3. methods是关键词，不可改变
 
+## 第十三节 getter 计算属性
+
+> Vue 2 /3 ,Angular 都有存在，统计其他变量
+
+~~~html
+ <div id="hello-vue" class="m-3 p-3 border border-success">
+        <h3>我今年通关了这几个游戏：</h3>
+        <ol>
+            <li v-for="game in games">{{ game }}</li>
+        </ol>
+        <hr>
+        <div class="lead">
+            数数看，我今年一共通关了 <b class="text-danger">{{playedGameCount}}</b> 款游戏。
+        </div>
+    </div>
+    <script>
+        Vue.createApp({/* options */
+            data() {
+                return {
+                    games: [
+                        "纸片马里奥",
+                        "勇者斗恶龙建造者2",
+                        "赛博朋克2077",
+                        "BrawlStars",
+                    ]
+                }
+            },
+            computed: {
+                playedGameCount() {
+                    return this.games.length
+                }
+            }
+        }).mount('#hello-vue')
+    </script>
+~~~
+
+1. 使用v-for 循环输出 li 
+2. this.games.length 不会去重
+3. 列表最后一个逗号，可有可无
+4. playedGameCount 是函数
