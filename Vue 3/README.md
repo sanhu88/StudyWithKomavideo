@@ -348,7 +348,7 @@ vue create hello-vues
 > },
 > errorCaptured: function() {}
 
-## 第十一节  插值 v-once,v-html,v-bind
+## 第十一节  插值 语法v-once,v-html,v-bind
 
 >  
 
@@ -356,19 +356,19 @@ vue create hello-vues
 <body>
     <div id="hello-vue" class="m-3 p-3 border border-success">
         <h3>插值语法</h3>
-        <span class="text-primary">{{ message }} </span>
+        <span class="text-primary">{{ message }} </span> //text-primary 蓝色字体
 
         <hr>
         <h3>只渲染一次 - v-once</h3>
         <span v-once class="text-danger">{{ message }}</span>
         <br>
-        <button class="btn btn-info" v-on:click="this.message='不要太悲观, 虽然上帝看不到。'">哦？</button>
+        <button class="btn btn-info" v-on:click="this.message='不要太悲观, 虽然上帝看不到。'">哦？</button> //点击改变message内容
         
         <hr>
         <h3>原始HTML - v-html</h3>
-        {{ rawHtml }}
+        {{ rawHtml }} //原始HTML
         <br>
-        <span v-html="rawHtml"></span>
+        <span v-html="rawHtml"></span> //转化刷出，存在安全隐患
         
         <hr>
         <h3>绑定属性 - v-bind:xxx</h3>
@@ -391,6 +391,45 @@ vue create hello-vues
 > 1. 胡子（插值）语法为何可以显示正确的值，
 >    * id 绑定给Vue内部核心
 > 2. bootstrap 语法，text-primary 蓝色字体
-> 3. v-once 如果代码值变化，不会再次渲染，不会双向变化
+> 3. v-once 如果代码值变化，不会再次渲染，不会双向变化。不用赋值，就是一个属性
 > 4. 原始客户输入代码，直接v-html使用有安全风险需要白名单处理
 > 5. button的disable属性是HTML5原生的
+
+## 第十二节  简化 v-bind 和 v-on
+
+> * v-bind 绑定属性 -> :attr
+> * v-on 绑定事件 -> @event
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <h3>属性绑定</h3>
+        <!-- 完整写法：v-bind:href -->
+        <a v-bind:href="komavideo" class="link" target="_blank">小马视频</a><br />
+        <!-- 省略写法：:href -->
+        <a :href="komavideo" class="link" target="_blank">小马视频</a>
+        <h3>事件绑定</h3>
+        <!-- 完整写法：v-on:click -->
+        <button v-on:click="buyPS5(1)" class="btn btn-success">买PS5</button>
+        <!-- 省略写法：:href -->
+        <button @click="buyPS5(0)" class="btn btn-danger">不买PS5</button>
+    </div>
+    <script>
+        Vue.createApp({/* options */
+            data() {
+                return {
+                    komavideo: 'http://komavideo.com'
+                }
+            },
+            methods: {
+                buyPS5(val) {
+                    val == 1 ? alert("买买买！！！") : alert("不买不买不买！！！")
+                }
+            }
+        }).mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+1. buyPS5 就是一个methods里的函数，接受参数传入
+
