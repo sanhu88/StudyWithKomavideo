@@ -512,4 +512,53 @@ vue create hello-vues
 
 1. 提供X Y 两个属性
 2. 动态改变XY的值，不要改变计算属性，设为只读函数
-3. z = Math.ceil(Math.random()*100)
+3. @click 中对result进行的修改
+4. z = Math.ceil(Math.random()*100)
+5. 可以读值和写值
+
+## 第十五节 计算属性与函数区别
+
+>计算属性，可以读写值。函数也可以。
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <h2>{{ msg }} / {{ this.getResult() }}</h2>
+        <h3>result: {{this.result}} / {{ this.getDateTime() }}</h3>
+        <button @click="btnClick()" class="btn btn-success">一个按钮</button>
+    </div>
+    <script>
+        Vue.createApp({
+            /* options */
+            data() {
+                return {
+                    msg: "i love u." //数据对象
+                }
+            },
+            computed: {
+                result() {	//计算属性
+                    // return this.msg
+                    return this.getDateTime() //计算属性调用函数，获取系统时间
+                }
+            },
+            methods: {//函数部分
+                getResult() {
+                    return this.msg
+                },
+                getDateTime() {
+                    now = new Date()
+                    return "00:" + now.getMinutes() + ":" + now.getSeconds()
+                },//分秒时间，函数获取时间
+                btnClick() {
+                    console.log("this.result:", this.result)//计算属性，不会变化，缓存cache
+                    console.log("this.getDateTime():", this.getDateTime())//调用函数，新的时间对象
+                }
+            }
+        }).mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+1. methods 函数每次执行，产生新的对象。
+2. computed 计算属性是被缓存的
+3. 尽可能不依赖计算属性，进行业务逻辑计算。仅做辅助显示。
