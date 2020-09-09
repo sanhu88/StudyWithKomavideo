@@ -562,3 +562,70 @@ vue create hello-vues
 1. methods 函数每次执行，产生新的对象。
 2. computed 计算属性是被缓存的
 3. 尽可能不依赖计算属性，进行业务逻辑计算。仅做辅助显示。
+
+## 第十六节 watch
+
+>观察者属性使用方法
+>
+>侦测页面绑定数据的更改
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <p>
+            有什么问题吗:
+            <input v-model="question" /><!-- 数据绑定文本框 -->
+        </p>
+        <p>
+            {{ msg }}
+            <hr>
+            <img :src="answer" alt=""> <!-- 显示图片-->
+        </p>
+    </div>
+    <script>
+        Vue.createApp({
+            /* options */
+            data() {
+                return {//三个数据值
+                    question: '',
+                    answer: '',
+                    msg: "",//提示信息
+                }
+            },
+            watch: {//观察属性
+                question(newQuestion, oldQuestion) {//观察question
+                    if (newQuestion.indexOf('?') > -1) {//用户输入有无问号
+                        this.getAnswer() //返回答案
+                    } else {
+                        this.msg = ""
+                        this.answer = ""
+                    }
+                }
+            },
+            methods: {
+                getAnswer() {
+                    this.msg = "考虑中..."
+                    axios//库，script中有引用
+                        .get('https://yesno.wtf/api')
+                        .then(response => {
+                            this.msg = response.data.answer
+                            this.answer = response.data.image
+                        })
+                        .catch(error => {
+                            this.msg = 'Error! Could not reach the API. ' + error
+                        })
+                }
+            }
+        }).mount('#hello-vue')
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+</body>
+~~~
+
+1. https://yesno.wtf/api 返回jason
+
+   ~~~json
+   {"answer":"yes","forced":false,"image":"https://yesno.wtf/assets/yes/9-6403270cf95723ae4664274db51f1fd4.gif"}
+   ~~~
+
+   

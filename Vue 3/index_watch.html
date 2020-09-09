@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 3.0 - 小马技术</title>
+	
+	<!--引用Vue 最新版	-->
+    <script src="https://unpkg.com/vue@next"></script>
+	
+	<!--引入bootstrap  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous"> 
+</head>
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <p>
+            有什么问题吗:
+            <input v-model="question" /><!-- 绑定文本框 -->
+        </p>
+        <p>
+            {{ msg }}
+            <hr>
+            <img :src="answer" alt=""> <!-- 显示图片-->
+        </p>
+    </div>
+    <script>
+        Vue.createApp({
+            /* options */
+            data() {
+                return {//三个数据值
+                    question: '',
+                    answer: '',
+                    msg: "",//提示信息
+                }
+            },
+            watch: {//观察属性
+                question(newQuestion, oldQuestion) {//观察question
+                    if (newQuestion.indexOf('?' or '？') > -1) {//用户输入有无问号
+                        this.getAnswer() //返回答案
+                    } else {
+                        this.msg = ""
+                        this.answer = ""
+                    }
+                }
+            },
+            methods: {
+                getAnswer() {
+                    this.msg = "考虑中..."
+                    axios//库，script中有引用
+                        .get('https://yesno.wtf/api')
+                        .then(response => {
+                            this.msg = response.data.answer
+                            this.answer = response.data.image
+                        })
+                        .catch(error => {
+                            this.msg = 'Error! Could not reach the API. ' + error
+                        })
+                }
+            }
+        }).mount('#hello-vue')
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+</body>
+</html>
