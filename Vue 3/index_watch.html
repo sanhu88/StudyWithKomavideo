@@ -35,7 +35,7 @@
             },
             watch: {//观察属性
                 question(newQuestion, oldQuestion) {//观察question
-                    if (newQuestion.indexOf('?' or '？') > -1) {//用户输入有无问号
+                    if (newQuestion.indexOf('?')> -1) {//用户输入有无问号
                         this.getAnswer() //返回答案
                     } else {
                         this.msg = ""

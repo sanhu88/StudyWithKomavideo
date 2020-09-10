@@ -628,4 +628,70 @@ vue create hello-vues
    {"answer":"yes","forced":false,"image":"https://yesno.wtf/assets/yes/9-6403270cf95723ae4664274db51f1fd4.gif"}
    ~~~
 
-   
+
+## 第十七节 动态样式单绑定
+
+> 组建中绑定css样式单
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <div class="text-danger border display-5">我爱NBA!</div><!--dispaly 5 字体--></！--dispaly>
+        <hr>
+        <div :class="{ 'text-danger': isLoveCBA, border: isLoveCBA, 'display-5': isLoveCBA }">我爱CBA!</div>
+    <!--冒号v-bind属性绑定class，判断bootstrap5的属性是不是true -->
+        <button @click="this.isLoveCBA=!this.isLoveCBA" class="btn btn-info">爱CBA</button>
+    <!--v-on事件绑定，按钮改变 isLoveCBA值-->
+        <hr>
+        <div :class="cssCUBA">我爱CUBA!</div>
+    <!-- 绑定cssCUBA 对象，-->
+        <button @click="this.cssCUBA=this.cssTitle" class="btn btn-info">爱CUBA</button>
+    <!--把cssTitle 赋值给cssCUBA，改变样式。成为CSS样式绑定 -->
+        <hr>
+        <!-- 直接绑定style属性, 不用class方式 -->
+        <div :style="cssWNBA">我爱WNBA!</div>
+    <!--:style,不用定义css class -->
+    </div>
+    <script>
+        Vue.createApp({
+            /* options */
+            data() {
+                return {//数据内容
+                    isLoveCBA: false, //布尔型
+                    cssCUBA: {},	//json 型，可以给初始值
+                    cssTitle: {//bootstrap中css定义的class
+                        'text-danger': true,
+                        'border': true,
+                        'display-5': true,
+                    },
+                    cssWNBA: {//Dhtml
+                        color: 'pink',
+                        fontSize: '36px'
+                    }
+                }
+            },
+            methods: {}
+        }).mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+1. 三种方式绑定css样式
+
+   * 写好对应的样式，然后true false绑定变量
+
+   * 绑定:class 到某个json型变量
+
+     ~~~html
+     <div class="text-danger border display-5">
+     ~~~
+
+     
+
+   * 直接绑定:style ，不用再指定class 
+
+     ~~~html
+     <div style="color: pink; font-size: 36px;">
+     ~~~
+
+     
