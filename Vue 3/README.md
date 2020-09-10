@@ -694,4 +694,49 @@ vue create hello-vues
      <div style="color: pink; font-size: 36px;">
      ~~~
 
-     
+
+
+## 第十八节 条件渲染
+
+> 根据条件值，是否渲染html内容
+>
+> v-if / v-else-if / v-else
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <div v-if="isLoveGame" class="display-5 text-primary">一定要买 PS5.</div>
+        <!--判断是否为真 -->
+        <div v-else class="display-5 text-success">好好学习，天天向上。</div>
+        <hr>
+        <template v-if="isLoveGame">
+            <!--template是HTML5中脚本-->
+            <h3>必买游戏</h3>
+            <ol>
+                <li>塞伯朋克2077</li>
+                <li>文明7</li>
+                <li>街头霸王6</li>
+            </ol>
+        </template>
+        <hr>
+        <div v-if="this.playedYears >= 10" class="display-5">资深玩家</div>
+        <div v-else-if="this.playedYears >= 5" class="display-5">老玩家</div>
+        <div v-else-if="this.playedYears >= 2" class="display-5">入门级</div>
+        <div v-else class="display-5">菜鸟一枚</div>
+    </div>
+    <script>
+        Vue.createApp({
+            /* options */
+            data() {
+                return {//两个布尔值
+                    isLoveGame: true,
+                    playedYears: 10,
+                }
+            },
+            methods: {}
+        }).mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+1. 只会显示符合判断的div
