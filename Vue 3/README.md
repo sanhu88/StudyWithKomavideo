@@ -740,3 +740,71 @@ vue create hello-vues
 ~~~
 
 1. 只会显示符合判断的div
+
+
+
+## 第十九节 v-for
+
+> v-for 渲染页面
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <h3>v-for普通用法</h3>
+        <ul>
+            <!--循环languages 对象，获得值 -->
+            <li v-for="item in languages">{{item.name}}</li>
+            
+        </ul>
+        <hr>
+        <h3>v-for索引</h3>
+        <ul>
+            <!--元组，index为索引 -->
+            <li v-for="(item, index) in languages">{{index+1}} - {{item.name}}</li>
+        </ul>
+        <hr>
+        <h3>v-for循环对象</h3>
+        <ul>
+            <!--获得是每个属性的值 -->
+            <li v-for="val in game_sfv">{{val}}</li>
+        </ul>
+        <hr>
+        <h3>v-for循环对象(附带标题)</h3>
+        <ul>
+            <!--title 也可以为别的名称，比如key，attr -->
+            <li v-for="(val, title) in game_sfv">{{title}} -> {{val}}</li>
+        </ul>
+        <hr>
+        <h3>v-for循环对象(附带标题+索引)</h3>
+        <ul>
+            <li v-for="(val, title, index) in game_sfv">{{index+1}} - {{title}} -> {{val}}</li>
+        </ul>
+    </div>
+    <script>
+        Vue.createApp({
+            /* options */
+            data() {//两个数据，编程语言
+                return {
+                    languages: [
+                        {name: "Python"},
+                        {name: "Java"},
+                        {name: "Go"}
+                    ],
+                    game_sfv: {//是一个对象，不是数组
+                        name: "Street Fighter 5",
+                        platform: "PS4",
+                        developer: "Capcom",
+                        release: "2016/02/16",
+                        genre: "格斗"
+                    }
+                }
+            },
+            methods: {}
+        }).mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+1. 数组和对象的循环
+2. v-for 写在 <li>里
+3. v-for="(val, title, index) in game_sfv 中，与名字无关，与顺序有关。
