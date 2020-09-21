@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 3.0 - 小马技术</title>
+	
+	<!--引用Vue 最新版	-->
+    <script src="https://unpkg.com/vue@next"></script>
+	
+	<!--引入bootstrap  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous"> 
+</head>
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <!-- v-on@接受submit事件-->
+        <form @submit.prevent="addNewTodo"><!--prevent,阻止向服务器提交，内循环 -->
+            <label for="new-todo">添加预定：</label>
+            <!--接受用户输入内容，v-model双向绑定到newTodoText -->
+            <input v-model="newTodoText" id="new-todo" placeholder="例:一起吃鸡" />
+            <!--因为内循环，所以按钮不再使用click submit事件 ，自动提交-->
+            <button>添加</button>
+        </form>
+		
+		
+        <hr/>
+        
+        <!--一览表 v-for 循环todos输出，@remove 接受 -->
+        <ul class="p-3">
+            <!--todo-item 为自定义组件，显示逻辑在自定义组件模板。v-bind: 绑定 title v-on@接受remove，然后从todos删除当前 -->
+            <todo-item v-for="(todo, index) in todos" :id="todo.id" :title="todo.title"  @remove="todos.splice(index, 1)"></todo-item>
+        </ul>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            /* options */
+            data() {
+                return {
+                    newTodoText: '',
+                    //给出一个todo数组
+                    todos: [{
+                            id: 1,
+                            title: '给女友买礼物'
+                        },
+                        {
+                            id: 2,
+                            title: '请女友吃大餐'
+                        },
+                        {
+                            id: 3,
+                            title: '陪女友看电影'
+                        }
+                    ],
+                    nextTodoId: 4 //自定义添加
+                }
+            },
+            methods: {
+                //添加预定，push新增一个
+                addNewTodo() {
+                    this.todos.push({
+                        id: this.nextTodoId++,
+                        title: this.newTodoText
+                    })
+                    this.newTodoText = ''
+                }
+            }
+        })
+		//	自定义移除组件
+        app.component('todo-item', {
+            template: `
+                <li class='p-2'>
+                {{ title }}
+				<!--删除按钮接受单击事件，激活remove事件，传给父组件 -->
+                <button @click="$emit('remove')">删除</button>
+                </li>
+            `,
+            props: ['title']
+        })
+
+        app.mount('#hello-vue')
+    </script>
+</body>
+</html>

@@ -808,3 +808,84 @@ vue create hello-vues
 1. 数组和对象的循环
 2. v-for 写在 <li>里
 3. v-for="(val, title, index) in game_sfv 中，与名字无关，与顺序有关。
+
+## 第二十节 v-for part 2
+
+> v-for 综合示例
+>
+> 1. v-form 的使用
+> 2. event
+> 3. v-for
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+        <!-- 接受submit事件-->
+        <form v-on:submit.prevent="addNewTodo"><!--prevent,阻止向服务器提交，内循环 -->
+            <label for="new-todo">添加预定：</label>
+            <!--接受用户输入内容，绑定到newTodoText -->
+            <input v-model="newTodoText" id="new-todo" placeholder="例:一起吃鸡" />
+            <!--因为内循环，所以按钮不再使用click submit事件 ，自动提交-->
+            <button>添加</button>
+        </form>
+        <hr/>
+        
+        <!--一览表 v-for 循环todos输出，@remove 接受 -->
+        <ul class="p-3">
+            <!--todo-item 为自定义组件，显示逻辑在自定义组件，接受remove，然后从todos删除当前 -->
+            <todo-item v-for="(todo, index) in todos" :key="todo.id" :title="todo.title"  @remove="todos.splice(index, 1)"></todo-item>
+        </ul>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            /* options */
+            data() {
+                return {
+                    newTodoText: '',
+                    //给出一个todo数组
+                    todos: [{
+                            id: 1,
+                            title: '给女友买礼物'
+                        },
+                        {
+                            id: 2,
+                            title: '请女友吃大餐'
+                        },
+                        {
+                            id: 3,
+                            title: '陪女友看电影'
+                        }
+                    ],
+                    nextTodoId: 4 //自定义添加
+                }
+            },
+            methods: {
+                //添加预定，push新增一个
+                addNewTodo() {
+                    this.todos.push({
+                        id: this.nextTodoId++,
+                        title: this.newTodoText
+                    })
+                    this.newTodoText = ''
+                }
+            }
+        })
+		//	自定义移除组件
+        app.component('todo-item', {
+            template: `
+                <li class='p-2'>
+                {{ title }}
+				<!--删除按钮接受单击事件，激活remove事件，传给父组件 -->
+                <button @click="$emit('remove')">删除</button>
+                </li>
+            `,
+            props: ['title']
+        })
+
+        app.mount('#hello-vue')
+    </script>
+</body>
+~~~
+
+> 1.  关于向服务器提交，有开发规范。小马老师将在工程开发中讲解
+> 2. @submit.prevent 中如果不加prevent ，会向服务器提交。但是本地环境提交无法成功。就会添加失败。
