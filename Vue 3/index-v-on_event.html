@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 3.0 - 小马技术</title>
+	
+	<!--引用Vue 最新版	-->
+    <script src="https://unpkg.com/vue@next"></script>
+	
+	<!--引入bootstrap  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous"> 
+</head>
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+	<!-- m-3 p-3 border border-success 为bootstrap的样式-->
+     <h2>点击次数：{{count}}</h2>
+        <button class="btn btn-success m-2" @click="btnClick1()">点它1</button> <!--v-on函数 -->
+        <button class="btn btn-info m-2" @click="btnClick2($event)">点它2</button><!--v-on函数，传入函数对象 -->
+        <hr>
+		
+		
+        <h2>表单演示(阻止提交)</h2><!-- -->
+        <form>
+            <label for="new-todo">添加预定：</label>
+            <input v-model="newTodoText" id="new-todo" placeholder="例:一起吃鸡" />
+            <button @click="btnClick3($event)">添加</button><!--向服务器提交 -->
+        <form>
+            <ul>
+                <li v-for="todo in todos">{{todo}}</li>
+            </ul>
+        </form>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            /* options */
+            data() {
+                return {
+                    count: 0,	//计数器
+                    newTodoText: '',
+                    todos: []
+                }
+            },
+            methods: {
+                btnClick1() {
+                    this.count++;//变量自加1
+                },
+                btnClick2(event) {
+                    this.count++;//变量自加1，然后输出日志
+                    console.log(event)
+                    console.log(event.target)	//<button class="btn btn-info m-2">点它2</button>
+                    console.log(event.target.attributes.class)	//class="btn btn-info m-2">点它2</button>
+                    console.log(event.target.innerText)	// 点它2
+                },
+                btnClick3(event) {
+                     if (event) {
+                         // 阻止事件发生的方法
+                         event.preventDefault()
+                     }
+                    this.todos.push(this.newTodoText)
+                    this.newTodoText = ""
+                }
+            }
+        })
+        app.mount('#hello-vue')
+    </script>  
+</body>
+</html>

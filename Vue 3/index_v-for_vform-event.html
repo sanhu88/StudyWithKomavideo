@@ -28,7 +28,12 @@
         <!--一览表 v-for 循环todos输出，@remove 接受 -->
         <ul class="p-3">
             <!--todo-item 为自定义组件，显示逻辑在自定义组件模板。v-bind: 绑定 title v-on@接受remove，然后从todos删除当前 -->
-            <todo-item v-for="(todo, index) in todos" :id="todo.id" :title="todo.title"  @remove="todos.splice(index, 1)"></todo-item>
+            <todo-item v-for="(todo, index) in todos" 
+				:id="todo.id" 
+				:title="todo.title" 
+				:index = "index" 
+				@remove="todos.splice(index, 1)">
+			</todo-item>
         </ul>
     </div>
     <script>
@@ -69,12 +74,14 @@
         app.component('todo-item', {
             template: `
                 <li class='p-2'>
-                {{ title }}
+               {{ index }} : {{ id }} - {{ title }}
 				<!--删除按钮接受单击事件，激活remove事件，传给父组件 -->
                 <button @click="$emit('remove')">删除</button>
                 </li>
             `,
-            props: ['title']
+            // index 会跟随变动实时更新 id则不会是固定的
+            // 子组件可以使用 $emit 触发父组件的自定义事件
+            props: ['title','id','index']
         })
 
         app.mount('#hello-vue')

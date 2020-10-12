@@ -811,7 +811,7 @@ vue create hello-vues
 
 ## 第二十节 v-for part 2
 
-> v-for 综合示例
+> v-form 综合示例
 >
 > 1. v-form 的使用
 > 2. event
@@ -889,3 +889,63 @@ vue create hello-vues
 
 > 1.  关于向服务器提交，有开发规范。小马老师将在工程开发中讲解
 > 2. @submit.prevent 中如果不加prevent ，会向服务器提交。但是本地环境提交无法成功。就会添加失败。
+> 3. 自定义的组件，属性在props里先声明
+
+## 第二十一节 v-on / event
+
+>事件处理方法
+>
+>event输出，与HTML的DOM的互动
+>
+>阻止向服务器提交
+
+~~~html
+<h2>点击次数：{{count}}</h2>
+        <button class="btn btn-success m-2" @click="btnClick1()">点它1</button>
+        <button class="btn btn-info m-2" @click="btnClick2($event)">点它2</button>
+        <hr>
+        <h2>表单演示(阻止提交)</h2>
+        <form>
+            <label for="new-todo">添加预定：</label>
+            <input v-model="newTodoText" id="new-todo" placeholder="例:一起吃鸡" />
+            <button @click="btnClick3($event)">添加</button>
+            <ul>
+                <li v-for="todo in todos">{{todo}}</li>
+            </ul>
+        </form>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            /* options */
+            data() {
+                return {
+                    count: 0,
+                    newTodoText: '',
+                    todos: []
+                }
+            },
+            methods: {
+                btnClick1() {
+                    this.count++;
+                },
+                btnClick2(event) {
+                    this.count++;
+                    console.log(event)
+                    console.log(event.target)
+                    console.log(event.target.attributes.class)
+                    console.log(event.target.innerText)
+                },
+                btnClick3(event) {
+                    // if (event) {
+                    //     // 阻止事件发生
+                    //     event.preventDefault()
+                    // }
+                    this.todos.push(this.newTodoText)
+                    this.newTodoText = ""
+                }
+            }
+        })
+        app.mount('#hello-vue')
+    </script>
+~~~
+
