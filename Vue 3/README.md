@@ -1005,3 +1005,63 @@ vue create hello-vues
 >实际开发，不推荐使用。调整复杂
 >
 >知识尝试
+
+## 第二十三节 事件修饰符
+
+>避免使用系统级的全局调用底层API，比如event.preventDefault()，不是Vue开发模式希望使用的方法
+>
+>* .prevent 阻值事件提交
+
+~~~html
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+	<!-- m-3 p-3 border border-success 为bootstrap的样式-->
+      <h2>表单演示(阻止提交)</h2>
+        <form @submit.prevent="noSubmit"><!--v-on 绑定提交，增加一个属性，然后传入 noSubmit 函数--> 
+       <!--甚至可以移除="noSubmit" 部分，不需要指定方法-->
+        <!-- <form> -->
+            <label for="new-todo">添加预定：</label>
+            <input v-model="newTodoText" id="new-todo" placeholder="例:一起吃鸡" />
+            <button @click="btnAddTodo()">添加</button>
+            <ul>
+                <li v-for="todo in todos">{{todo}}</li>
+            </ul>
+        </form>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            /* options */
+            data() {
+                return {
+                    newTodoText: '',
+                    todos: []
+                }
+            },
+            methods: {
+                btnAddTodo() {
+                    if (event) {
+                        // 阻止事件发生
+                        //event.preventDefault()	//底层API的方式阻止提交
+                    }
+                    this.todos.push(this.newTodoText)
+                    this.newTodoText = ""
+                },
+                noSubmit() {
+                    //console.log("noSubmit")
+                    console.log(event.target.innerText)
+                }
+            }
+        })
+        app.mount('#hello-vue')
+    </script> 
+</body>
+~~~
+
+> 其他还有包括：
+>
+> * .stop ，停止事件冒泡，用来代替 event.stopPropagation()
+> * .capture 捕捉
+> * .self 自己
+> * .once 仅处理一次
+> * .passive 阻值处理事件，被动的
+
