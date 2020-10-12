@@ -949,3 +949,59 @@ vue create hello-vues
     </script>
 ~~~
 
+## 第二十二节 Multiple Event
+
+> 事件的多处理
+
+~~~html
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 3.0 - 小马技术</title>
+	
+	<!--引用Vue 最新版	-->
+    <script src="https://unpkg.com/vue@next"></script>
+	
+	<!--引入bootstrap  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous"> 
+</head>
+<body>
+    <div id="hello-vue" class="m-3 p-3 border border-success">
+	<!-- m-3 p-3 border border-success 为bootstrap的样式-->
+       <h2>点击次数：{{count}}</h2>
+        <button class="btn btn-success m-2" @click="btnClick1(), btnClick2($event)">点它加1</button><!--逗号分隔，多个处理函数 -->
+    </div>
+    <script>
+        const app = Vue.createApp({
+            /* options */
+            data() {
+                return {
+                    count: 0,
+                }
+            },
+            methods: {
+                btnClick1() {
+                    this.count++;
+                },
+                btnClick2(event) {
+					
+                    console.log(event)
+                    console.log(event.target)
+                    console.log(event.target.attributes.class)
+                    console.log(event.target.innerText)
+                },
+            }
+        })
+        app.mount('#hello-vue')
+    </script>
+</body>
+</html>
+~~~
+
+>逗号分隔
+>
+>实际开发，不推荐使用。调整复杂
+>
+>知识尝试
